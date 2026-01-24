@@ -429,8 +429,8 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "kasir-api-production-2671.up.railway.app",
-	BasePath:         "",
-	Schemes:          []string{},
+	BasePath:         "/",
+	Schemes:          []string{"https"},
 	Title:            "Kasir API",
 	Description:      "",
 	InfoInstanceName: "swagger",

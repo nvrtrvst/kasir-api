@@ -1,3 +1,4 @@
+basePath: /
 host: kasir-api-production-2671.up.railway.app
 info:
   contact:
@@ -271,4 +272,6 @@ paths:
       summary: Update Produk
       tags:
       - Products
+schemes:
+- https
 swagger: "2.0"

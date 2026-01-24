@@ -3,9 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"kasir-api/docs"
 	_ "kasir-api/docs"
 	"kasir-api/internal/handler"
 	"net/http"
+	"os"
+	"runtime"
 
 	httpSwagger "github.com/swaggo/http-swagger"
 )
@@ -16,7 +19,32 @@ import (
 // @contact.url    http://www.kasirapi.com/support
 // @contact.email  7bM8A@example.com
 // @host      kasir-api-production-2671.up.railway.app
+// @BasePath  /
+// @schemes         https
 func main() {
+	fmt.Println("===========================================")
+	fmt.Printf("Go version: %s\n", runtime.Version())
+	fmt.Println("===========================================")
+	fmt.Printf("Go version: %s\n", runtime.Version())
+	fmt.Printf("GOOS: %s, GOARCH: %s\n", runtime.GOOS, runtime.GOARCH)
+
+	// Dynamic host configuration
+	host := os.Getenv("SWAGGER_HOST")
+	if host == "" {
+		host = "localhost:8080"
+	}
+
+	// Update swagger spec at runtime
+	docs.SwaggerInfo.Host = host
+
+	// Set scheme berdasarkan environment
+	if os.Getenv("RAILWAY_ENVIRONMENT") != "" || os.Getenv("PORT") != "" {
+		docs.SwaggerInfo.Schemes = []string{"https"}
+	} else {
+		docs.SwaggerInfo.Schemes = []string{"http"}
+	}
+
+	docs.SwaggerInfo.BasePath = "/"
 
 	// Jalur untuk membuka UI Swagger
 	http.HandleFunc("/swagger/", httpSwagger.WrapHandler)
@@ -54,6 +82,12 @@ func main() {
 	// 		json.NewEncoder(w).Encode(repository.Category)
 	// 	}
 	// })
+	categoryHandler := handler.NewCategoryHandler()
+	http.HandleFunc("GET /api/categories", categoryHandler.GetAllCategories)
+	http.HandleFunc("POST /api/categories", categoryHandler.CreateCategory)
+	http.HandleFunc("PUT /api/categories/{id}", categoryHandler.UpdateCategory)
+	http.HandleFunc("GET /api/categories/{id}", categoryHandler.GetCategoryByID)
+	http.HandleFunc("DELETE /api/categories/{id}", categoryHandler.DeleteCategory)
 
 	productHandler := handler.NewProductHandler()
 	http.HandleFunc("GET /api/produk", productHandler.GetAllProducts)
@@ -61,13 +95,6 @@ func main() {
 	http.HandleFunc("PUT /api/produk/{id}", productHandler.UpdateProduct)
 	http.HandleFunc("GET /api/produk/{id}", productHandler.GetProductByID)
 	http.HandleFunc("DELETE /api/produk/{id}", productHandler.DeleteProduct)
-
-	categoryHandler := handler.NewCategoryHandler()
-	http.HandleFunc("GET /api/categories", categoryHandler.GetAllCategories)
-	http.HandleFunc("POST /api/categories", categoryHandler.CreateCategory)
-	http.HandleFunc("PUT /api/categories/{id}", categoryHandler.UpdateCategory)
-	http.HandleFunc("GET /api/categories/{id}", categoryHandler.GetCategoryByID)
-	http.HandleFunc("DELETE /api/categories/{id}", categoryHandler.DeleteCategory)
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")

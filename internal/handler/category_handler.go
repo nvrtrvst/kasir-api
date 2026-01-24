@@ -21,7 +21,7 @@ func NewCategoryHandler() *CategoryHandler {
 // @Tags         Categories
 // @Accept       json
 // @Produce      json
-// @Success      2200  {array}  object{id=int,name=string,description=string}
+// @Success      200  {array}  object{id=int,name=string,description=string}
 // @Router       /api/categories [get]
 func (h *CategoryHandler) GetAllCategories(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -59,7 +59,7 @@ func (h *CategoryHandler) GetCategoryByID(w http.ResponseWriter, r *http.Request
 // @Tags         Categories
 // @Accept       json
 // @Produce      json
-// @Param        id path int true "Category ID"
+// @Param        category  body  object{name=string,description=string}  true  "Data Kategori"
 // @Success      201       {object}  object{id=int,name=string,description=string}
 // @Router       /api/categories [post]
 func (h *CategoryHandler) CreateCategory(w http.ResponseWriter, r *http.Request) {
@@ -84,7 +84,7 @@ func (h *CategoryHandler) CreateCategory(w http.ResponseWriter, r *http.Request)
 // @Tags         Categories
 // @Accept       json
 // @Produce      json
-// @Param id path int true "Category ID"
+// @Param        category  body  object{name=string,description=string}  true  "Data Kategori"
 // @Success      200       {object}  object{id=int,name=string,description=string}
 // @Router       /api/categories/{id} [put]
 func (h *CategoryHandler) UpdateCategory(w http.ResponseWriter, r *http.Request) {

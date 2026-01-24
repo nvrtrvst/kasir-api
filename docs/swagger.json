@@ -1,4 +1,7 @@
 {
+    "schemes": [
+        "https"
+    ],
     "swagger": "2.0",
     "info": {
         "title": "Kasir API",
@@ -10,6 +13,7 @@
         "version": "1.0"
     },
     "host": "kasir-api-production-2671.up.railway.app",
+    "basePath": "/",
     "paths": {
         "/api/categories": {
             "get": {
