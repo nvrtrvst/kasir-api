@@ -7,7 +7,6 @@ import (
 	_ "kasir-api/docs"
 	"kasir-api/internal/handler"
 	"net/http"
-	"os"
 	"runtime"
 
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -27,22 +26,6 @@ func main() {
 	fmt.Println("===========================================")
 	fmt.Printf("Go version: %s\n", runtime.Version())
 	fmt.Printf("GOOS: %s, GOARCH: %s\n", runtime.GOOS, runtime.GOARCH)
-
-	// Dynamic host configuration
-	host := os.Getenv("SWAGGER_HOST")
-	if host == "" {
-		host = "localhost:8080"
-	}
-
-	// Update swagger spec at runtime
-	docs.SwaggerInfo.Host = host
-
-	// Set scheme berdasarkan environment
-	if os.Getenv("RAILWAY_ENVIRONMENT") != "" || os.Getenv("PORT") != "" {
-		docs.SwaggerInfo.Schemes = []string{"https"}
-	} else {
-		docs.SwaggerInfo.Schemes = []string{"http"}
-	}
 
 	docs.SwaggerInfo.BasePath = "/"
 
@@ -88,10 +71,6 @@ func main() {
 	http.HandleFunc("PUT /api/categories/{id}", categoryHandler.UpdateCategory)
 	http.HandleFunc("GET /api/categories/{id}", categoryHandler.GetCategoryByID)
 	http.HandleFunc("DELETE /api/categories/{id}", categoryHandler.DeleteCategory)
-
-	http.HandleFunc("/api/test", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Routing aman!"))
-	})
 
 	productHandler := handler.NewProductHandler()
 	http.HandleFunc("GET /api/produk", productHandler.GetAllProducts)
