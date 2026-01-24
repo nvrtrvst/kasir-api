@@ -1,0 +1,274 @@
+host: kasir-api-production-2671.up.railway.app
+info:
+  contact:
+    email: 7bM8A@example.com
+    name: Reza Muhammad Akbar
+    url: http://www.kasirapi.com/support
+  title: Kasir API
+  version: "1.0"
+paths:
+  /api/categories:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data kategori yang tersedia
+      produces:
+      - application/json
+      responses:
+        "2200":
+          description: ""
+          schema:
+            items:
+              properties:
+                description:
+                  type: string
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+            type: array
+      summary: Dapatkan Semua Kategori
+      tags:
+      - Categories
+    post:
+      consumes:
+      - application/json
+      description: Menambahkan kategori baru ke dalam sistem
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            properties:
+              description:
+                type: string
+              id:
+                type: integer
+              name:
+                type: string
+            type: object
+      summary: Buat Kategori Baru
+      tags:
+      - Categories
+  /api/categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus kategori yang ada
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              message:
+                type: string
+            type: object
+      summary: Hapus Kategori
+      tags:
+      - Categories
+    get:
+      consumes:
+      - application/json
+      description: Mengambil data kategori yang tersedia by ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "2200":
+          description: ""
+          schema:
+            items:
+              properties:
+                description:
+                  type: string
+                id:
+                  type: integer
+                name:
+                  type: string
+              type: object
+            type: array
+      summary: Dapatkan  Kategori By ID
+      tags:
+      - Categories
+    put:
+      consumes:
+      - application/json
+      description: Memperbarui informasi kategori yang ada
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              description:
+                type: string
+              id:
+                type: integer
+              name:
+                type: string
+            type: object
+      summary: Update Kategori
+      tags:
+      - Categories
+  /api/produk:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil semua data produk yang tersedia
+      produces:
+      - application/json
+      responses:
+        "2200":
+          description: ""
+          schema:
+            items:
+              properties:
+                harga:
+                  type: integer
+                id:
+                  type: integer
+                nama:
+                  type: string
+                stok:
+                  type: integer
+              type: object
+            type: array
+      summary: Dapatkan Semua Produk
+      tags:
+      - Products
+    post:
+      consumes:
+      - application/json
+      description: Menambahkan produk baru ke dalam sistem
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            properties:
+              harga:
+                type: integer
+              id:
+                type: integer
+              nama:
+                type: string
+              stok:
+                type: integer
+            type: object
+      summary: Buat Produk Baru
+      tags:
+      - Products
+  /api/produk/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus produk yang ada
+      parameters:
+      - description: Produk ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              message:
+                type: string
+            type: object
+      summary: Hapus Produk
+      tags:
+      - Products
+    get:
+      consumes:
+      - application/json
+      description: Mengambil data produk yang tersedia by ID
+      parameters:
+      - description: Produk ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "2200":
+          description: ""
+          schema:
+            items:
+              properties:
+                harga:
+                  type: integer
+                id:
+                  type: integer
+                nama:
+                  type: string
+                stok:
+                  type: integer
+              type: object
+            type: array
+      summary: Dapatkan Produk By ID
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      description: Memperbarui informasi produk yang ada
+      parameters:
+      - description: Produk ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              harga:
+                type: integer
+              id:
+                type: integer
+              nama:
+                type: string
+              stok:
+                type: integer
+            type: object
+      summary: Update Produk
+      tags:
+      - Products
+swagger: "2.0"
