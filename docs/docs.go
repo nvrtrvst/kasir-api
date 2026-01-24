@@ -166,6 +166,13 @@ const docTemplate = `{
                 "summary": "Update Kategori",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Data Kategori",
                         "name": "category",
                         "in": "body",
@@ -290,6 +297,28 @@ const docTemplate = `{
                     "Products"
                 ],
                 "summary": "Buat Produk Baru",
+                "parameters": [
+                    {
+                        "description": "Data Produk",
+                        "name": "produk",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "harga": {
+                                    "type": "integer"
+                                },
+                                "nama": {
+                                    "type": "string"
+                                },
+                                "stok": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Created",
@@ -381,6 +410,26 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Data Produk",
+                        "name": "produk",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "harga": {
+                                    "type": "integer"
+                                },
+                                "nama": {
+                                    "type": "string"
+                                },
+                                "stok": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -448,9 +497,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "kasir-api-production-2671.up.railway.app",
+	Host:             "",
 	BasePath:         "/",
-	Schemes:          []string{"https"},
+	Schemes:          []string{"https", "http"},
 	Title:            "Kasir API",
 	Description:      "",
 	InfoInstanceName: "swagger",

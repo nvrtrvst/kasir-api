@@ -7,6 +7,7 @@ import (
 	_ "kasir-api/docs"
 	"kasir-api/internal/handler"
 	"net/http"
+	"os"
 	"runtime"
 
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -17,15 +18,31 @@ import (
 // @contact.name   Reza Muhammad Akbar
 // @contact.url    http://www.kasirapi.com/support
 // @contact.email  7bM8A@example.com
-// @host      kasir-api-production-2671.up.railway.app
+// @host
 // @BasePath  /
-// @schemes         https
+// @schemes         https http
 func main() {
 	fmt.Println("===========================================")
 	fmt.Printf("Go version: %s\n", runtime.Version())
 	fmt.Println("===========================================")
 	fmt.Printf("Go version: %s\n", runtime.Version())
 	fmt.Printf("GOOS: %s, GOARCH: %s\n", runtime.GOOS, runtime.GOARCH)
+
+	// ... pring-print version ...
+
+	// Cek PORT untuk menentukan environment
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		// SETINGAN LOKAL
+		port = "8080"
+		docs.SwaggerInfo.Host = "localhost:8080"
+		docs.SwaggerInfo.Schemes = []string{"http"}
+	} else {
+		// SETINGAN RAILWAY
+		docs.SwaggerInfo.Host = "kasir-api-production-2671.up.railway.app"
+		docs.SwaggerInfo.Schemes = []string{"https"}
+	}
 
 	docs.SwaggerInfo.BasePath = "/"
 

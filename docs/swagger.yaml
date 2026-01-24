@@ -1,5 +1,4 @@
 basePath: /
-host: kasir-api-production-2671.up.railway.app
 info:
   contact:
     email: 7bM8A@example.com
@@ -123,6 +122,11 @@ paths:
       - application/json
       description: Memperbarui informasi kategori yang ada
       parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
       - description: Data Kategori
         in: body
         name: category
@@ -181,6 +185,20 @@ paths:
       consumes:
       - application/json
       description: Menambahkan produk baru ke dalam sistem
+      parameters:
+      - description: Data Produk
+        in: body
+        name: produk
+        required: true
+        schema:
+          properties:
+            harga:
+              type: integer
+            nama:
+              type: string
+            stok:
+              type: integer
+          type: object
       produces:
       - application/json
       responses:
@@ -265,6 +283,19 @@ paths:
         name: id
         required: true
         type: integer
+      - description: Data Produk
+        in: body
+        name: produk
+        required: true
+        schema:
+          properties:
+            harga:
+              type: integer
+            nama:
+              type: string
+            stok:
+              type: integer
+          type: object
       produces:
       - application/json
       responses:
@@ -286,4 +317,5 @@ paths:
       - Products
 schemes:
 - https
+- http
 swagger: "2.0"

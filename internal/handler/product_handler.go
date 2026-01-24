@@ -56,12 +56,13 @@ func (h *ProductHandler) GetProductByID(w http.ResponseWriter, r *http.Request) 
 	http.Error(w, "Produk Tidak Ada", http.StatusNotFound)
 }
 
-// CreateProduk godoc
+// CreateProduct godoc
 // @Summary      Buat Produk Baru
 // @Description  Menambahkan produk baru ke dalam sistem
 // @Tags         Products
 // @Accept       json
 // @Produce      json
+// @Param        produk  body  object{nama=string,harga=int,stok=int}  true  "Data Produk"
 // @Success      201       {object}  object{id=int,nama=string,harga=int,stok=int}
 // @Router       /api/produk [post]
 func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
@@ -80,18 +81,18 @@ func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(newProduk)
 }
 
-// UpdateProduk godoc
+// UpdateProduct godoc
 // @Summary      Update Produk
 // @Description  Memperbarui informasi produk yang ada
 // @Tags         Products
 // @Accept       json
 // @Produce      json
-// @Param id path int true "Produk ID"
+// @Param        id        path    int     true  "Produk ID"
+// @Param        produk  body  object{nama=string,harga=int,stok=int}  true  "Data Produk"
 // @Success      200       {object}  object{id=int,nama=string,harga=int,stok=int}
 // @Router       /api/produk/{id} [put]
 func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
 		http.Error(w, "Invalid Produk id", http.StatusBadRequest)
 		return

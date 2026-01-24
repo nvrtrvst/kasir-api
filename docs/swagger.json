@@ -1,6 +1,7 @@
 {
     "schemes": [
-        "https"
+        "https",
+        "http"
     ],
     "swagger": "2.0",
     "info": {
@@ -12,7 +13,6 @@
         },
         "version": "1.0"
     },
-    "host": "kasir-api-production-2671.up.railway.app",
     "basePath": "/",
     "paths": {
         "/api/categories": {
@@ -162,6 +162,13 @@
                 "summary": "Update Kategori",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Data Kategori",
                         "name": "category",
                         "in": "body",
@@ -286,6 +293,28 @@
                     "Products"
                 ],
                 "summary": "Buat Produk Baru",
+                "parameters": [
+                    {
+                        "description": "Data Produk",
+                        "name": "produk",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "harga": {
+                                    "type": "integer"
+                                },
+                                "nama": {
+                                    "type": "string"
+                                },
+                                "stok": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Created",
@@ -377,6 +406,26 @@
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Data Produk",
+                        "name": "produk",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "harga": {
+                                    "type": "integer"
+                                },
+                                "nama": {
+                                    "type": "string"
+                                },
+                                "stok": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
                     }
                 ],
                 "responses": {

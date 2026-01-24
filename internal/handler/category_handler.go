@@ -84,7 +84,8 @@ func (h *CategoryHandler) CreateCategory(w http.ResponseWriter, r *http.Request)
 // @Tags         Categories
 // @Accept       json
 // @Produce      json
-// @Param        category  body  object{id=int,name=string,description=string}  true  "Data Kategori"
+// @Param        id        path    int     true  "Category ID"
+// @Param        category  body  object{name=string,description=string}  true  "Data Kategori"
 // @Success      200       {object}  object{id=int,name=string,description=string}
 // @Router       /api/categories/{id} [put]
 func (h *CategoryHandler) UpdateCategory(w http.ResponseWriter, r *http.Request) {
