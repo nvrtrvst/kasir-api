@@ -89,7 +89,7 @@ func main() {
 	http.HandleFunc("GET /api/categories/{id}", categoryHandler.GetCategoryByID)
 	http.HandleFunc("DELETE /api/categories/{id}", categoryHandler.DeleteCategory)
 
-	http.HandleFunc("GET /api/test", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/api/test", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Routing aman!"))
 	})
 
