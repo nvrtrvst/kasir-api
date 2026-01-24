@@ -16,8 +16,8 @@ paths:
       produces:
       - application/json
       responses:
-        "2200":
-          description: ""
+        "200":
+          description: OK
           schema:
             items:
               properties:
@@ -37,11 +37,17 @@ paths:
       - application/json
       description: Menambahkan kategori baru ke dalam sistem
       parameters:
-      - description: Category ID
-        in: path
-        name: id
+      - description: Data Kategori
+        in: body
+        name: category
         required: true
-        type: integer
+        schema:
+          properties:
+            description:
+              type: string
+            name:
+              type: string
+          type: object
       produces:
       - application/json
       responses:
@@ -117,11 +123,17 @@ paths:
       - application/json
       description: Memperbarui informasi kategori yang ada
       parameters:
-      - description: Category ID
-        in: path
-        name: id
+      - description: Data Kategori
+        in: body
+        name: category
         required: true
-        type: integer
+        schema:
+          properties:
+            description:
+              type: string
+            name:
+              type: string
+          type: object
       produces:
       - application/json
       responses:

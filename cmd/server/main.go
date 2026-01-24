@@ -83,7 +83,7 @@ func main() {
 	// 	}
 	// })
 	categoryHandler := handler.NewCategoryHandler()
-	http.HandleFunc("GET /api/cat", categoryHandler.GetAllCategories)
+	http.HandleFunc("GET /api/categories", categoryHandler.GetAllCategories)
 	http.HandleFunc("POST /api/categories", categoryHandler.CreateCategory)
 	http.HandleFunc("PUT /api/categories/{id}", categoryHandler.UpdateCategory)
 	http.HandleFunc("GET /api/categories/{id}", categoryHandler.GetCategoryByID)
