@@ -5,8 +5,8 @@ import (
 	"kasir-api/internal/models"
 	"kasir-api/internal/services"
 	"net/http"
+	"path"
 	"strconv"
-	"strings"
 )
 
 type ProductHandler struct {
@@ -75,8 +75,7 @@ func (h *ProductHandler) HandleProductByID(w http.ResponseWriter, r *http.Reques
 
 // GetByID - GET /api/produk/{id}
 func (h *ProductHandler) GetByID(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		http.Error(w, "Invalid product ID", http.StatusBadRequest)
 		return
@@ -93,8 +92,7 @@ func (h *ProductHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *ProductHandler) Update(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		http.Error(w, "Invalid product ID", http.StatusBadRequest)
 		return
@@ -120,8 +118,9 @@ func (h *ProductHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 // Delete - DELETE /api/produk/{id}
 func (h *ProductHandler) Delete(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
-	id, err := strconv.Atoi(idStr)
+	// idStr := strings.TrimPrefix(r.URL.Path, "/api/produk/")
+	// id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		http.Error(w, "Invalid product ID", http.StatusBadRequest)
 		return

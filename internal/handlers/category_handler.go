@@ -5,8 +5,8 @@ import (
 	"kasir-api/internal/models"
 	"kasir-api/internal/services"
 	"net/http"
+	"path"
 	"strconv"
-	"strings"
 )
 
 type CategoryHandler struct {
@@ -70,8 +70,9 @@ func (h *CategoryHandler) HandleCategoryByID(w http.ResponseWriter, r *http.Requ
 }
 
 func (h *CategoryHandler) GetByID(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/categories/")
-	id, err := strconv.Atoi(idStr)
+	// idStr := strings.TrimPrefix(r.URL.Path, "/api/categories/")
+	// id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		http.Error(w, "Invalid Category id", http.StatusBadRequest)
 		return
@@ -126,30 +127,28 @@ func (h *CategoryHandler) Create(w http.ResponseWriter, r *http.Request) {
 // @Success      200       {object}  object{id=int,name=string,description=string}
 // @Router       /api/categories/{id} [put]
 func (h *CategoryHandler) Update(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/categories/")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		http.Error(w, "Invalid Category id", http.StatusBadRequest)
 		return
 	}
 
-	var updateData models.Category
-	err = json.NewDecoder(r.Body).Decode(&updateData)
+	var category models.Category
+	err = json.NewDecoder(r.Body).Decode(&category)
 	if err != nil {
-		http.Error(w, "Invalid", http.StatusBadRequest)
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
 
-	updateData.ID = id
-	err = h.service.Update(&updateData)
+	category.ID = id
+	err = h.service.Update(&category)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(updateData)
-	http.Error(w, "Category Tidak Ada", http.StatusNotFound)
+	json.NewEncoder(w).Encode(category)
 }
 
 // DeleteCategory godoc
@@ -162,8 +161,7 @@ func (h *CategoryHandler) Update(w http.ResponseWriter, r *http.Request) {
 // @Success      200       {object}  object{message=string}
 // @Router       /api/categories/{id} [delete]
 func (h *CategoryHandler) Delete(w http.ResponseWriter, r *http.Request) {
-	idStr := strings.TrimPrefix(r.URL.Path, "/api/categories/")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		http.Error(w, "Invalid Category id", http.StatusBadRequest)
 		return
