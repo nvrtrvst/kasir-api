@@ -1,6 +1,7 @@
 package services
 
 import (
+	"kasir-api/internal/models"
 	model "kasir-api/internal/models"
 	"kasir-api/internal/repositories"
 )
@@ -13,7 +14,7 @@ func NewProductService(repo *repositories.ProductRepository) *ProductService {
 	return &ProductService{repo: repo}
 }
 
-func (s *ProductService) GetAll() ([]model.Product, error) {
+func (s *ProductService) GetAll(name string) ([]models.Product, error) {
 	return s.repo.GetAll()
 }
 
